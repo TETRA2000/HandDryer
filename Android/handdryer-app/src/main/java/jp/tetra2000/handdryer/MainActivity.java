@@ -5,17 +5,17 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity implements SensorEventListener {
+public class MainActivity extends ActionBarActivity {
     private SensorManager mManager;
     private Sensor mProximitySensor;
+    private float mProximityRange;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,18 +29,20 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
             Toast.makeText(this, getString(R.string.not_supported_device), Toast.LENGTH_LONG).show();
             finish();
         }
+
+        mProximityRange = mProximitySensor.getMaximumRange();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        mManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+        mManager.registerListener(mProximityListenr, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     protected void onPause() {
-        mManager.unregisterListener(this, mProximitySensor);
+        mManager.unregisterListener(mProximityListenr, mProximitySensor);
 
         super.onPause();
     }
@@ -65,13 +67,26 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        Log.d("sensor", event.values[0]+"");
+    private void onDryingStateChanged(boolean isDrying) {
+        Toast.makeText(this, isDrying+"", Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    private SensorEventListener mProximityListenr = new SensorEventListener() {
+        private boolean isDrying = false;
 
-    }
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            boolean near = event.values[0] < mProximityRange;
+            if(near != isDrying) {
+                // state changed
+                isDrying = near;
+                onDryingStateChanged(isDrying);
+            }
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+        }
+    };
 }
