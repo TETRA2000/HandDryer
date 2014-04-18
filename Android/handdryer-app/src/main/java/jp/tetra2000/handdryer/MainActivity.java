@@ -5,10 +5,13 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 
@@ -17,9 +20,17 @@ public class MainActivity extends ActionBarActivity {
     private Sensor mProximitySensor;
     private float mProximityRange;
 
+    private SoundPool mDryerSound;
+    private int mDryerSoundId;
+    private int mStreamId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // keep screen on
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         setContentView(R.layout.activity_main);
 
         mManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -30,19 +41,27 @@ public class MainActivity extends ActionBarActivity {
             finish();
         }
 
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
         mProximityRange = mProximitySensor.getMaximumRange();
+
+        mDryerSound = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        mManager.registerListener(mProximityListenr, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+        mDryerSoundId = mDryerSound.load(this, R.raw.dryer, 1);
+
+        mManager.registerListener(mProximityListenr, mProximitySensor, SensorManager.SENSOR_DELAY_UI);
     }
 
     @Override
     protected void onPause() {
         mManager.unregisterListener(mProximityListenr, mProximitySensor);
+
+        mDryerSound.unload(R.raw.dryer);
 
         super.onPause();
     }
@@ -69,6 +88,12 @@ public class MainActivity extends ActionBarActivity {
 
     private void onDryingStateChanged(boolean isDrying) {
         Toast.makeText(this, isDrying+"", Toast.LENGTH_LONG).show();
+
+        if(isDrying)
+            mStreamId = mDryerSound.play(mDryerSoundId, 1.0f, 1.0f, 0, -1, 1.0f);
+        else
+            if (mStreamId!=0)
+                mDryerSound.stop(mStreamId);
     }
 
     private SensorEventListener mProximityListenr = new SensorEventListener() {
