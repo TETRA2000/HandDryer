@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -23,6 +24,8 @@ public class MainActivity extends ActionBarActivity {
     private int mDryerSoundId;
     private int mStreamId;
 
+    private ImageView mDryerImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,8 @@ public class MainActivity extends ActionBarActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.activity_main);
+
+        mDryerImage = (ImageView) findViewById(R.id.imageView);
 
         mManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mProximitySensor = mManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
@@ -86,11 +91,20 @@ public class MainActivity extends ActionBarActivity {
 //    }
 
     private void onDryingStateChanged(boolean isDrying) {
-        if(isDrying)
+        if(isDrying) {
+            // play sound
             mStreamId = mDryerSound.play(mDryerSoundId, 1.0f, 1.0f, 0, -1, 1.0f);
-        else
+            // change image
+            mDryerImage.setImageResource(R.drawable.drying);
+        }
+        else {
+            // stop sound if playing
             if (mStreamId!=0)
                 mDryerSound.stop(mStreamId);
+
+            // change image
+            mDryerImage.setImageResource(R.drawable.normal);
+        }
     }
 
     private SensorEventListener mProximityListenr = new SensorEventListener() {
