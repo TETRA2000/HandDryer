@@ -87,8 +87,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void onDryingStateChanged(boolean isDrying) {
-        Toast.makeText(this, isDrying+"", Toast.LENGTH_LONG).show();
-
         if(isDrying)
             mStreamId = mDryerSound.play(mDryerSoundId, 1.0f, 1.0f, 0, -1, 1.0f);
         else
