@@ -49,7 +49,7 @@ public class MainActivity extends ActionBarActivity {
 
         mProximityRange = mProximitySensor.getMaximumRange();
 
-        mDryerSound = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        mDryerSound = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
     }
 
     @Override
