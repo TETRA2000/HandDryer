@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="jp.tetra2000.handdryer" >
 
+    <uses-feature android:name="android.hardware.sensor.proximity" android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"

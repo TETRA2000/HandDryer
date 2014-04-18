@@ -4,5 +4,6 @@
     <string name="app_name">Hand Dryer</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="not_supported_device">Sorry. This Device is not supported.</string>
 
 </resources>
