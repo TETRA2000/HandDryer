@@ -13,6 +13,7 @@
 		A929C39F19D6B012000860E6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A929C39E19D6B012000860E6 /* Images.xcassets */; };
 		A929C3A219D6B012000860E6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A929C3A019D6B012000860E6 /* LaunchScreen.xib */; };
 		A929C3AE19D6B012000860E6 /* Hand_DryerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A929C3AD19D6B012000860E6 /* Hand_DryerTests.swift */; };
+		A9E082A11C1DA25800B9DB1A /* dryer.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A9E082A01C1DA23C00B9DB1A /* dryer.m4a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		A929C3A719D6B012000860E6 /* Hand DryerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hand DryerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A929C3AC19D6B012000860E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A929C3AD19D6B012000860E6 /* Hand_DryerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hand_DryerTests.swift; sourceTree = "<group>"; };
+		A9E082A01C1DA23C00B9DB1A /* dryer.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = dryer.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 		A929C39519D6B012000860E6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A9E082A01C1DA23C00B9DB1A /* dryer.m4a */,
 				A929C39619D6B012000860E6 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -156,11 +159,17 @@
 		A929C38A19D6B012000860E6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = TETRA2000;
 				TargetAttributes = {
 					A929C39119D6B012000860E6 = {
 						CreatedOnToolsVersion = 6.0.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					A929C3A619D6B012000860E6 = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -194,6 +203,7 @@
 			files = (
 				A929C39D19D6B012000860E6 /* Main.storyboard in Resources */,
 				A929C3A219D6B012000860E6 /* LaunchScreen.xib in Resources */,
+				A9E082A11C1DA25800B9DB1A /* dryer.m4a in Resources */,
 				A929C39F19D6B012000860E6 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
