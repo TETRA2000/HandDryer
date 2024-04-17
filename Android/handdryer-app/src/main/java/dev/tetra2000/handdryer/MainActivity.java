@@ -1,4 +1,4 @@
-package jp.tetra2000.handdryer;
+package dev.tetra2000.handdryer;
 
 import android.content.Context;
 import android.hardware.Sensor;

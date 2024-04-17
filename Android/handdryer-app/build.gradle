@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace = "jp.tetra2000.handdryer"
+    namespace = "dev.tetra2000.handdryer"
     defaultConfig {
         compileSdk = 34
     }
