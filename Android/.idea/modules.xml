@@ -3,8 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Android.iml" filepath="$PROJECT_DIR$/Android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/handdryer-app/handdryer-app.iml" filepath="$PROJECT_DIR$/handdryer-app/handdryer-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/handdryer-app/Android.handdryer-app.iml" filepath="$PROJECT_DIR$/.idea/modules/handdryer-app/Android.handdryer-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/handdryer-app/Android.handdryer-app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/handdryer-app/Android.handdryer-app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/handdryer-app/Android.handdryer-app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/handdryer-app/Android.handdryer-app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/handdryer-app/Android.handdryer-app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/handdryer-app/Android.handdryer-app.unitTest.iml" />
     </modules>
   </component>
 </project>
-
