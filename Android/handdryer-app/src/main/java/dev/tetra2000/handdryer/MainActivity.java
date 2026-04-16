@@ -5,13 +5,15 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        mDryerImage = (ImageView) findViewById(R.id.imageView);
+        mDryerImage = findViewById(R.id.imageView);
 
         mManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mProximitySensor = mManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
@@ -48,7 +50,14 @@ public class MainActivity extends AppCompatActivity {
 
         mProximityRange = mProximitySensor.getMaximumRange();
 
-        mDryerSound = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_MEDIA)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+        mDryerSound = new SoundPool.Builder()
+                .setMaxStreams(10)
+                .setAudioAttributes(audioAttributes)
+                .build();
     }
 
     @Override
@@ -57,12 +66,12 @@ public class MainActivity extends AppCompatActivity {
 
         mDryerSoundId = mDryerSound.load(this, R.raw.dryer, 1);
 
-        mManager.registerListener(mProximityListenr, mProximitySensor, SensorManager.SENSOR_DELAY_UI);
+        mManager.registerListener(mProximityListener, mProximitySensor, SensorManager.SENSOR_DELAY_UI);
     }
 
     @Override
     protected void onPause() {
-        mManager.unregisterListener(mProximityListenr, mProximitySensor);
+        mManager.unregisterListener(mProximityListener, mProximitySensor);
 
         mDryerSound.unload(R.raw.dryer);
 
@@ -94,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private SensorEventListener mProximityListenr = new SensorEventListener() {
+    private SensorEventListener mProximityListener = new SensorEventListener() {
         private boolean isDrying = false;
 
         @Override
